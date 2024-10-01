@@ -2,7 +2,7 @@ import java.awt.image.BufferedImage; // Trabalhar c Imagens
 import javax.imageio.ImageIO; // Ler e Salvar Imagens
 import java.io.File; // Usar Files
 import java.io.IOException;
-import java.util.Stack;
+import java.util.Stack; // NÃO PODEMOS USAR STACK
 
 public class FloodFillTestes {
     static class Pixel {     // Classe para representar pixel em x e y
