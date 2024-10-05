@@ -2,7 +2,6 @@ public class DinamicStack<T> {
     private T[] data;
     private int top = -1;
 
-    @SuppressWarnings("unchecked")
     public DinamicStack(int capacidadeInicial) {
         data = (T[]) new Object[capacidadeInicial];
     }
@@ -14,7 +13,7 @@ public class DinamicStack<T> {
         }
         data[++top] = elemento;
     }
-
+    
     // Remove e retorna o elemento do topo da pilha
     public T pop() {
         if (isEmpty()) {
@@ -35,7 +34,6 @@ public class DinamicStack<T> {
     }
 
     // Expande a pilha quando cheia
-    @SuppressWarnings("unchecked")
     private void aumentar() {
         int novaCapacidade = data.length * 2;
         T[] newData = (T[]) new Object[novaCapacidade];
