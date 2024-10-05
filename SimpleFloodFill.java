@@ -28,7 +28,7 @@ public class SimpleFloodFill {
             floodFill(image, startX, startY, targetColor, newColor);
 
             // Salva a imagem modificada
-            ImageIO.write(image, "png", new File("testinho2.png"));
+            ImageIO.write(image, "png", new File("testinho3.png"));
             System.out.println("Flood Fill completado!");
 
         } catch (IOException e) {
