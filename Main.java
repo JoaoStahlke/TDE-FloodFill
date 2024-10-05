@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Carrega a imagem
-            BufferedImage image = ImageIO.read(new File("ultrateste.png"));
+            BufferedImage image = ImageIO.read(new File("testinho.png"));
 
             // Coordenadas iniciais
             int startX = 1;
@@ -29,7 +29,7 @@ public class Main {
             FloodFill.floodFill(image, startX, startY, targetColor, newColor);
 
             // Salva a imagem modificada
-            ImageIO.write(image, "png", new File("ultrateste_modificada.png"));
+            ImageIO.write(image, "png", new File("testinho2.png"));
             System.out.println("Preenchimento concluído!");
 
         } catch (IOException e) {
