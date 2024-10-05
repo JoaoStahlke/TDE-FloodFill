@@ -3,7 +3,6 @@ public class StaticQueue<T> {
     private int base = 0;
     private T[] data;
 
-    @SuppressWarnings("unchecked")
     public StaticQueue(int size) {
         data = (T[]) new Object[size];
     }
@@ -21,7 +20,7 @@ public class StaticQueue<T> {
             throw new IllegalStateException("A fila está vazia.");
         }
         T item = data[base];
-        data[base] = null;
+        data[base] = null; // Limpa o valor na posição base
         base = move(base);
         return item;
     }

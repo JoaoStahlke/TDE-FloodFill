@@ -2,7 +2,6 @@ public class SimpleStack<T> {
     private T[] data;
     private int top;
 
-    @SuppressWarnings("unchecked")
     public SimpleStack(int initialSize) {
         data = (T[]) new Object[initialSize];
         top = -1;
@@ -30,7 +29,6 @@ public class SimpleStack<T> {
     }
 
     // Redimensiona a pilha quando cheia
-    @SuppressWarnings("unchecked")
     private void resize() {
         T[] newData = (T[]) new Object[data.length * 2];
         System.arraycopy(data, 0, newData, 0, data.length);
