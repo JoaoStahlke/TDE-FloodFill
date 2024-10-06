@@ -1,14 +1,11 @@
-import java.awt.image.BufferedImage; // Trabalhar com imagens
-import javax.imageio.ImageIO; // Ler e salvar imagens
-import java.io.File; // Usar arquivos
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.IOException;
 
 public class FloodFillWithSimpleStack {
-
-    // Classe para representar um pixel com coordenadas x e y
     static class Pixel {
         int x, y;
-
         public Pixel(int x, int y) {
             this.x = x;
             this.y = y;
@@ -17,19 +14,19 @@ public class FloodFillWithSimpleStack {
 
     public static void main(String[] args) {
         try {
-            // Carrega a imagem
-            BufferedImage image = ImageIO.read(new File("testinho.png")); // Nome da imagem original
+            // Cria o diretório para os resultados
+            File resultDir = new File("Resultado_Pilha");
+            if (!resultDir.exists()) {
+                resultDir.mkdir();
+            }
 
-            // Coordenadas iniciais e cores
-            int startX = 1, startY = 1; // Coordenadas iniciais
-            int targetColor = image.getRGB(startX, startY); // Cor do pixel inicial
-            int newColor = 0xFF0000FF; // Nova cor (Azul)
+            BufferedImage image = ImageIO.read(new File("testinho.png"));
+            int startX = 300, startY = 204;
+            int targetColor = image.getRGB(startX, startY);
+            int newColor = 0xFF0000FF; // Azul
 
-            // Chama o algoritmo Flood Fill
             floodFill(image, startX, startY, targetColor, newColor);
 
-            // Salva a imagem modificada
-            ImageIO.write(image, "png", new File("testinho2.png")); // Nome da imagem resultante
             System.out.println("Flood Fill completado!");
 
         } catch (IOException e) {
@@ -37,52 +34,61 @@ public class FloodFillWithSimpleStack {
         }
     }
 
-    // Função Flood Fill
     public static void floodFill(BufferedImage image, int startX, int startY, int targetColor, int newColor) {
         int width = image.getWidth();
         int height = image.getHeight();
+        int pixelsPintados = 0;
+        int numeroImagem = 0;
 
-        // Usamos a pilha simples fornecida
         SimpleStack<Pixel> stack = new SimpleStack<>(width * height);
 
-        // Verifica se a cor alvo é a mesma da nova cor
         if (targetColor == newColor) {
-            return; // Não faz nada se as cores forem as mesmas
+            return;
         }
 
-        // Adiciona o pixel inicial na pilha
         stack.push(new Pixel(startX, startY));
 
-        // Direções para os vizinhos (cima, baixo, esquerda, direita)
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
 
-        // Enquanto a pilha não estiver vazia
         while (!stack.isEmpty()) {
-            Pixel p = stack.pop(); // Remove o próximo pixel
+            Pixel p = stack.pop();
 
-            // Verifica se o pixel está dentro dos limites da imagem
             if (p == null || p.x < 0 || p.x >= width || p.y < 0 || p.y >= height) {
                 continue;
             }
 
-            int x = p.x;
-            int y = p.y;
-
-            // Verifica se o pixel atual tem a cor alvo
-            if (image.getRGB(x, y) != targetColor) {
+            if (image.getRGB(p.x, p.y) != targetColor) {
                 continue;
             }
 
-            // Pinta o pixel com a nova cor
-            image.setRGB(x, y, newColor);
+            image.setRGB(p.x, p.y, newColor);
+            pixelsPintados++;
 
-            // Adiciona os vizinhos à pilha
-            for (int i = 0; i < 4; i++) {
-                int newX = x + dx[i];
-                int newY = y + dy[i];
-                stack.push(new Pixel(newX, newY)); // Adiciona pixel vizinho à pilha
+            // Salva uma imagem a cada 20 pixels pintados
+            if (pixelsPintados % 1000 == 0) {
+                try {
+                    File outputfile = new File("Resultado_Pilha/resultado_" + numeroImagem + ".png");
+                    ImageIO.write(image, "png", outputfile);
+                    numeroImagem++;
+                } catch (IOException e) {
+                    System.out.println("Erro ao salvar imagem intermediária: " + e.getMessage());
+                }
             }
+
+            for (int i = 0; i < 4; i++) {
+                int newX = p.x + dx[i];
+                int newY = p.y + dy[i];
+                stack.push(new Pixel(newX, newY));
+            }
+        }
+
+        // Salva a imagem final
+        try {
+            File outputfile = new File("Resultado_Pilha/resultado_final.png");
+            ImageIO.write(image, "png", outputfile);
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar imagem final: " + e.getMessage());
         }
     }
 }
