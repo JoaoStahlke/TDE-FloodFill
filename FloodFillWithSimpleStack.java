@@ -58,7 +58,7 @@ public class FloodFillWithSimpleStack {
             image.setRGB(p.x, p.y, newColor);
             pixelsPintados++;
 
-            // Salva uma imagem a cada 20 pixels pintados
+            // Salva uma imagem a cada 1000 pixels pintados
             if (pixelsPintados % 1000 == 0) {
                 try {
                     File outputfile = new File("Resultado_Pilha/resultado_" + numeroImagem + ".png");
