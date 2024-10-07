@@ -7,16 +7,15 @@ public class FloodFillWithSimpleStack {
 
     public static void main(String[] args) {
         try {
-            // Cria o diretório para os resultados
             File resultDir = new File("Resultado_Pilha");
             if (!resultDir.exists()) {
                 resultDir.mkdir();
             }
 
-            BufferedImage image = ImageIO.read(new File("testinho.png"));
-            int startX = 300, startY = 204;
+            BufferedImage image = ImageIO.read(new File("testinhoinho.png"));
+            int startX = 0, startY = 0;
             int targetColor = image.getRGB(startX, startY);
-            int newColor = 0xFF0000FF; // Azul
+            int newColor = 0xFF0000FF;
 
             floodFill(image, startX, startY, targetColor, newColor);
 
@@ -41,8 +40,8 @@ public class FloodFillWithSimpleStack {
 
         stack.push(new Pixel(startX, startY));
 
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
+        int[] dx = {0, 1, 0, -1};
+        int[] dy = {-1, 0, 1, 0};
 
         while (!stack.isEmpty()) {
             Pixel p = stack.pop();
@@ -58,8 +57,7 @@ public class FloodFillWithSimpleStack {
             image.setRGB(p.x, p.y, newColor);
             pixelsPintados++;
 
-            // Salva uma imagem a cada 1000 pixels pintados
-            if (pixelsPintados % 1000 == 0) {
+            if (pixelsPintados % 10 == 0) {
                 try {
                     File outputfile = new File("Resultado_Pilha/resultado_" + numeroImagem + ".png");
                     ImageIO.write(image, "png", outputfile);
@@ -75,8 +73,6 @@ public class FloodFillWithSimpleStack {
                 stack.push(new Pixel(newX, newY));
             }
         }
-
-        // Salva a imagem final
         try {
             File outputfile = new File("Resultado_Pilha/resultado_final.png");
             ImageIO.write(image, "png", outputfile);

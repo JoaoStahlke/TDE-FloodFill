@@ -20,7 +20,7 @@ public class StaticQueue<T> {
             throw new IllegalStateException("A fila está vazia.");
         }
         T item = data[base];
-        data[base] = null; // Limpa o valor na posição base
+        data[base] = null;
         base = move(base);
         return item;
     }

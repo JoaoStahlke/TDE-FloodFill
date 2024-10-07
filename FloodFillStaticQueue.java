@@ -7,23 +7,22 @@ public class FloodFillStaticQueue {
 
     public static void main(String[] args) {
         try {
-            // Cria o diretório para os resultados
             File resultDir = new File("Resultado_Fila");
             if (!resultDir.exists()) {
                 resultDir.mkdir();
             }
 
-            BufferedImage image = ImageIO.read(new File("teste2.png"));
-            int startX = 163, startY = 37;
+            BufferedImage image = ImageIO.read(new File("testinhoinho.png"));
+            int startX = 1, startY = 1;
             int targetColor = image.getRGB(startX, startY);
-            int newColor = 0xFFFF0000; // Vermelho
+            int newColor = 0xFFFF0000;
 
             floodFill(image, startX, startY, targetColor, newColor);
 
-            System.out.println("Flood Fill completed!");
+            System.out.println("Flood Fill completo!");
 
         } catch (IOException e) {
-            System.out.println("Error loading or saving the image: " + e.getMessage());
+            System.out.println("Erro ao carregar ou salvar a imagem: " + e.getMessage());
         }
     }
 
@@ -41,8 +40,8 @@ public class FloodFillStaticQueue {
 
         queue.add(new Pixel(startX, startY));
 
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
+        int[] dx = {0, 1, 0, -1};
+        int[] dy = {-1, 0, 1, 0};
 
         while (!queue.isEmpty()) {
             Pixel p = queue.remove();
@@ -59,8 +58,7 @@ public class FloodFillStaticQueue {
             image.setRGB(p.x, p.y, newColor);
             pixelsPintados++;
 
-            // Salva uma imagem a cada 20 pixels pintados
-            if (pixelsPintados % 1000 == 0) {
+            if (pixelsPintados % 20 == 0) {
                 try {
                     File outputfile = new File("Resultado_Fila/resultado_" + numeroImagem + ".png");
                     ImageIO.write(image, "png", outputfile);
@@ -69,7 +67,6 @@ public class FloodFillStaticQueue {
                     System.out.println("Erro ao salvar imagem intermediária: " + e.getMessage());
                 }
             }
-
             for (int i = 0; i < 4; i++) {
                 int newX = p.x + dx[i];
                 int newY = p.y + dy[i];
@@ -79,7 +76,6 @@ public class FloodFillStaticQueue {
             }
         }
 
-        // Salva a imagem final
         try {
             File outputfile = new File("Resultado_Fila/resultado_final.png");
             ImageIO.write(image, "png", outputfile);
