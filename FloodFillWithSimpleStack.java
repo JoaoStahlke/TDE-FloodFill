@@ -4,13 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class FloodFillWithSimpleStack {
-    static class Pixel {
-        int x, y;
-        public Pixel(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
 
     public static void main(String[] args) {
         try {
