@@ -41,8 +41,8 @@ public class FloodFillWithSimpleStack {
 
         stack.push(new Pixel(startX, startY));
 
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
+        int[] dx = {1, -1, 0, 0};   // Esquerda, Direita
+        int[] dy = {0, 0, 1, -1};   // Cima, Baixo
 
         while (!stack.isEmpty()) {
             Pixel p = stack.pop();
